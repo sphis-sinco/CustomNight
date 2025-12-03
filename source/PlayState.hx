@@ -12,7 +12,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		monster = new Monster(FlxG.random.int(1, 8));
+		monster = new Monster(FlxG.random.int(1, 4));
 		add(monster);
 		monster.roll_function_fail = rolled ->
 		{
