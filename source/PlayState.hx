@@ -10,6 +10,9 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+
+		monster = new Monster();
+		add(monster);
 	}
 
 	override public function update(elapsed:Float)
