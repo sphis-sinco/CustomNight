@@ -5,9 +5,31 @@ import flixel.FlxSprite;
 
 class Monster extends FlxSprite
 {
-	public var ai_level:Int = 0;
+	override public function new(ai_level:Int, ?X:Float, ?Y:Float)
+	{
+		super(X, Y);
+
+		this.ai_level = ai_level;
+	}
+
+	public var ai_level(default, set):Int = 0;
+
+	function set_ai_level(value:Int):Int
+	{
+		var new_ai_level = value;
+
+		if (new_ai_level > MAX_AI_LEVEL)
+			new_ai_level = MAX_AI_LEVEL;
+        
+		return new_ai_level;
+	}
 
 	public static var MAX_AI_LEVEL:Int = 20;
+
+	public function roll():Bool
+	{
+		return FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
+	}
 
 	public var state_data:Dynamic = {};
 
@@ -20,14 +42,4 @@ class Monster extends FlxSprite
 	{
 		return Reflect.field(state_data, field);
 	}
-
-	override public function new(?X:Float, ?Y:Float)
-	{
-		super(X, Y);
-	}
-
-    public function roll():Bool
-    {
-        return FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
-    }
 }

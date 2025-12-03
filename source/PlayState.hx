@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import custig.Monster;
 import flixel.FlxState;
 
@@ -11,7 +12,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		monster = new Monster();
+		monster = new Monster(FlxG.random.int(1,4));
 		add(monster);
 	}
 
