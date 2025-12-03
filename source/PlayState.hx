@@ -12,8 +12,13 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		monster = new Monster(FlxG.random.int(1,4));
+		monster = new Monster(FlxG.random.int(1, 4));
 		add(monster);
+		monster.roll_function_fail = rolled ->
+		{
+			if (((rolled / monster.ai_level) * 100) > 75)
+				FlxG.sound.play('assets/sounds/laugh.wav');
+		};
 	}
 
 	override public function update(elapsed:Float)
