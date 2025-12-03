@@ -20,16 +20,24 @@ class Monster extends FlxSprite
 
 		if (new_ai_level > MAX_AI_LEVEL)
 			new_ai_level = MAX_AI_LEVEL;
-        
+
 		return new_ai_level;
 	}
 
 	public static var MAX_AI_LEVEL:Int = 20;
 
-	public function roll():Bool
+	public function roll()
 	{
-		return FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
+		var roll_value:Bool = FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
+
+        if (roll_value)
+            roll_function_success(this);
+        else
+            roll_function_fail(this);
 	}
+
+    public var roll_function_success:Monster->Void;
+    public var roll_function_fail:Monster->Void;
 
 	public var state_data:Dynamic = {};
 
