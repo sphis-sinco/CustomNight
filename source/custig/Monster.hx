@@ -31,14 +31,29 @@ class Monster extends FlxSprite
 		var rolled:Int = FlxG.random.int(0, MAX_AI_LEVEL);
 		var roll_value:Bool = rolled <= ai_level;
 
-        if (roll_value)
-            roll_function_success(rolled);
-        else
-            roll_function_fail(rolled);
+		var percentage = ((rolled / ai_level) * 100);
+
+		#if debug
+		if (roll_value)
+			trace('roll_function_success');
+		else
+			trace('roll_function_fail');
+
+		trace('rolled: ' + rolled);
+		trace('ai_level: ' + ai_level);
+		trace('percentage: ' + percentage);
+		#else
+		trace('no cheating');
+		#end
+
+		if (roll_value)
+			roll_function_success(rolled, percentage);
+		else
+			roll_function_fail(rolled, percentage);
 	}
 
-    public var roll_function_success:Int->Void;
-    public var roll_function_fail:Int->Void;
+	public var roll_function_success:(Int, Float)->Void;
+	public var roll_function_fail:(Int, Float)->Void;
 
 	public var state_data:Dynamic = {};
 
