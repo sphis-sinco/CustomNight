@@ -1,31 +1,40 @@
 package;
 
+import flixel.sound.FlxSound;
 import flixel.FlxG;
 import custig.Monster;
 import flixel.FlxState;
 
 class PlayState extends FlxState
 {
-	public var monster:Monster;
+	public var sprite_monster:Monster;
+
+	var sound_laugh:FlxSound;
+	var sound_footsteps_slow:FlxSound;
+	var sound_footsteps_fast:FlxSound;
 
 	override public function create()
 	{
 		super.create();
+		sound_laugh = new FlxSound().loadStream('assets/sounds/laugh.wav');
+		sound_footsteps_slow = new FlxSound().loadStream('assets/sounds/footsteps-slow.wav');
+		sound_footsteps_fast = new FlxSound().loadStream('assets/sounds/footsteps-flow.wav');
 
-		monster = new Monster(FlxG.random.int(1, 4));
-		add(monster);
-		monster.roll_function_fail = (rolled, percentage) ->
+		sprite_monster = new Monster(FlxG.random.int(1, 4));
+		add(sprite_monster);
+		sprite_monster.roll_function_fail = (rolled, percentage) ->
 		{
-			if (percentage <= 25)
-				FlxG.sound.play('assets/sounds/laugh.wav');
+			if (rolled <= sprite_monster.ai_level + 2)
+				if (!sound_laugh.playing)
+					sound_laugh.play();
 		};
-		monster.roll_function_success = (rolled, percentage) ->
+		sprite_monster.roll_function_success = (rolled, percentage) ->
 		{
 			if (percentage <= 15)
-				FlxG.sound.play('assets/sounds/footsteps-slow.wav');
+				sound_footsteps_slow.play();
 
 			if (percentage >= 75)
-				FlxG.sound.play('assets/sounds/footsteps-fast.wav');
+				sound_footsteps_fast.play();
 		};
 	}
 
@@ -34,6 +43,6 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		if (FlxG.keys.justReleased.R)
-			monster.roll();
+			sprite_monster.roll();
 	}
 }

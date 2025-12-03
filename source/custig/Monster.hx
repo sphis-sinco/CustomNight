@@ -28,7 +28,7 @@ class Monster extends FlxSprite
 		var rolled:Int = FlxG.random.int(0, MAX_AI_LEVEL);
 		var roll_value:Bool = rolled <= ai_level;
 
-		var percentage = ((rolled / ai_level) * 100);
+		var percentage:Float = (rolled / ai_level);
 
 		#if debug
 		if (roll_value)
