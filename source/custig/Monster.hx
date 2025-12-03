@@ -12,17 +12,14 @@ class Monster extends FlxSprite
 		this.ai_level = ai_level;
 	}
 
-	public var ai_level(default, set):Int;
+	override function update(elapsed:Float) {
+		super.update(elapsed);
 
-	function set_ai_level(value:Int):Int
-	{
-		var new_ai_level = value;
-
-		if (new_ai_level > MAX_AI_LEVEL)
-			new_ai_level = MAX_AI_LEVEL;
-
-		return new_ai_level;
+		if (this.ai_level > MAX_AI_LEVEL)
+			this.ai_level = MAX_AI_LEVEL;
 	}
+
+	public var ai_level:Int = 0;
 
 	public static var MAX_AI_LEVEL:Int = 20;
 
