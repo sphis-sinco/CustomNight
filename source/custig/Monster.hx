@@ -28,16 +28,17 @@ class Monster extends FlxSprite
 
 	public function roll()
 	{
-		var roll_value:Bool = FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
+		var rolled:Int = FlxG.random.int(0, MAX_AI_LEVEL);
+		var roll_value:Bool = rolled <= ai_level;
 
         if (roll_value)
-            roll_function_success(this);
+            roll_function_success(rolled);
         else
-            roll_function_fail(this);
+            roll_function_fail(rolled);
 	}
 
-    public var roll_function_success:Monster->Void;
-    public var roll_function_fail:Monster->Void;
+    public var roll_function_success:Int->Void;
+    public var roll_function_fail:Int->Void;
 
 	public var state_data:Dynamic = {};
 
