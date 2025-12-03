@@ -1,12 +1,13 @@
 package custig;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 
 class Monster extends FlxSprite
 {
 	public var ai_level:Int = 0;
 
-	public static var MAX_AI_LEVEL:Int = 0;
+	public static var MAX_AI_LEVEL:Int = 20;
 
 	public var state_data:Dynamic = {};
 
@@ -24,4 +25,9 @@ class Monster extends FlxSprite
 	{
 		super(X, Y);
 	}
+
+    public function roll():Bool
+    {
+        return FlxG.random.int(0, MAX_AI_LEVEL) <= ai_level;
+    }
 }
